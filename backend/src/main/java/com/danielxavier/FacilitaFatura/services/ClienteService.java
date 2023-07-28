@@ -2,11 +2,14 @@ package com.danielxavier.FacilitaFatura.services;
 
 import com.danielxavier.FacilitaFatura.dto.ClienteDTO;
 import com.danielxavier.FacilitaFatura.entities.Cliente;
+import com.danielxavier.FacilitaFatura.exceptions.DatabaseException;
 import com.danielxavier.FacilitaFatura.exceptions.ResourceNotFoundException;
 import com.danielxavier.FacilitaFatura.repositories.ClienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -49,6 +52,19 @@ public class ClienteService {
         }
         catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id não encontrado " + id);
+        }
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id) {
+        if (!repository.existsById(id)){
+            throw new ResourceNotFoundException("Cliente não encontrado!");
+        }
+        try {
+            repository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DatabaseException("Falha na integridade referencial");
         }
     }
 }
