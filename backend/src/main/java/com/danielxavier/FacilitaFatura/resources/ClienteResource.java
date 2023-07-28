@@ -1,6 +1,6 @@
 package com.danielxavier.FacilitaFatura.resources;
 
-import com.danielxavier.FacilitaFatura.entities.Cliente;
+import com.danielxavier.FacilitaFatura.dto.ClienteDTO;
 import com.danielxavier.FacilitaFatura.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +19,8 @@ public class ClienteResource {
     private ClienteService service;
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> findAll(){
-        List<Cliente> list = service.findAll();
+    public ResponseEntity<List<ClienteDTO>> findAll(){
+        List<ClienteDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 }
