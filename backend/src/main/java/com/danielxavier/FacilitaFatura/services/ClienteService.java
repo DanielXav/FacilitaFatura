@@ -8,6 +8,8 @@ import com.danielxavier.FacilitaFatura.repositories.ClienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +24,9 @@ public class ClienteService {
     private ClienteRepository repository;
 
     @Transactional(readOnly = true)
-    public List<ClienteDTO> findAll(){
-        List<Cliente> list = repository.findAll();
-        return list.stream().map(ClienteDTO::new).toList();
+    public Page<ClienteDTO> findAllPaged(PageRequest pageRequest){
+        Page<Cliente> list = repository.findAll(pageRequest);
+        return list.map(ClienteDTO::new);
     }
 
     @Transactional(readOnly = true)
@@ -67,4 +69,5 @@ public class ClienteService {
             throw new DatabaseException("Falha na integridade referencial");
         }
     }
+
 }
