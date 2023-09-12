@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +25,8 @@ public class ClienteService {
     private ClienteRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<ClienteDTO> findAllPaged(PageRequest pageRequest){
-        Page<Cliente> list = repository.findAll(pageRequest);
+    public Page<ClienteDTO> findAllPaged(Pageable pageable){
+        Page<Cliente> list = repository.findAll(pageable);
         return list.map(ClienteDTO::new);
     }
 
