@@ -47,6 +47,18 @@ public class ClienteService {
     }
 
     @Transactional
+    public void adicionarValor(Long id, Double total) {
+        try {
+            Cliente entity = repository.getReferenceById(id);
+            entity.setTotal(entity.getTotal()+total);
+            repository.save(entity);
+        }
+        catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Id não encontrado " + id);
+        }
+    }
+
+    @Transactional
     public ClienteDTO update(Long id, ClienteDTO dto) {
         try {
             Cliente entity = repository.getReferenceById(id);
