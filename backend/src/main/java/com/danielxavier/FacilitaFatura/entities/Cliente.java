@@ -22,9 +22,10 @@ public class Cliente {
     public Cliente(){
     }
 
-    public Cliente(Long id, String name) {
+    public Cliente(Long id, String name, Double total) {
         this.id = id;
         this.name = name;
+        this.total = total;
     }
 
     public Long getId() {

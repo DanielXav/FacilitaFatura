@@ -41,6 +41,7 @@ public class ClienteService {
     public ClienteDTO insert(ClienteDTO dto){
         Cliente entity = new Cliente();
         entity.setName(dto.getName());
+        entity.setTotal((dto.getTotal()));
         entity = repository.save(entity);
         return new ClienteDTO(entity);
     }
@@ -50,6 +51,7 @@ public class ClienteService {
         try {
             Cliente entity = repository.getReferenceById(id);
             entity.setName(dto.getName());
+            entity.setTotal((dto.getTotal()));
             entity = repository.save(entity);
             return new ClienteDTO(entity);
         }
