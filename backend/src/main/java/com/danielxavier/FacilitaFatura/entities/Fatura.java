@@ -21,6 +21,7 @@ public class Fatura {
     private Double totalMonth;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
+
     @ManyToMany()
     @JoinTable(
             name = "tb_fatura_cliente",
@@ -94,5 +95,13 @@ public class Fatura {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public Double calculateTotalFatura(){
+        double totalFatura = 0.0;
+        for (Cliente cliente : clientes){
+            totalFatura += cliente.getTotal();
+        }
+        return totalFatura;
     }
 }

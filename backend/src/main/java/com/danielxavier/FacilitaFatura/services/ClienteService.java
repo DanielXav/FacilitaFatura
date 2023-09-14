@@ -5,6 +5,7 @@ import com.danielxavier.FacilitaFatura.entities.Cliente;
 import com.danielxavier.FacilitaFatura.exceptions.DatabaseException;
 import com.danielxavier.FacilitaFatura.exceptions.ResourceNotFoundException;
 import com.danielxavier.FacilitaFatura.repositories.ClienteRepository;
+import com.danielxavier.FacilitaFatura.repositories.FaturaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

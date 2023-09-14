@@ -18,17 +18,19 @@ public class FaturaDTO {
     private Brand brand;
     private Double totalMonth;
     private Instant date;
+    private Double totalFaturaClientes;
     private List<ClienteDTO> clientes = new ArrayList<>();
 
     public FaturaDTO(){
     }
 
-    public FaturaDTO(Long id, Month invoice_month, Brand brand, Double totalMonth, Instant date) {
+    public FaturaDTO(Long id, Month invoice_month, Brand brand, Double totalMonth, Instant date, Double totalFaturaClientes) {
         this.id = id;
         this.invoice_month = invoice_month;
         this.brand = brand;
         this.totalMonth = totalMonth;
         this.date = date;
+        this.totalFaturaClientes = totalFaturaClientes;
     }
 
     public FaturaDTO(Fatura entity){
@@ -37,6 +39,7 @@ public class FaturaDTO {
         this.brand = entity.getBrand();
         this.totalMonth = entity.getTotalMonth();
         this.date = entity.getDate();
+        this.totalFaturaClientes = entity.calculateTotalFatura();
     }
 
     public FaturaDTO(Fatura entity, Set<Cliente> clientes){
@@ -82,6 +85,14 @@ public class FaturaDTO {
 
     public void setDate(Instant date) {
         this.date = date;
+    }
+
+    public Double getTotalFaturaClientes() {
+        return totalFaturaClientes;
+    }
+
+    public void setTotalFaturaClientes(Double totalFaturaClientes) {
+        this.totalFaturaClientes = totalFaturaClientes;
     }
 
     public List<ClienteDTO> getClientes() {
