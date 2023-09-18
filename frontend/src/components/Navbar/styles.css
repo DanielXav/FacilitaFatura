@@ -1,0 +1,35 @@
+header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.nav-content h1 {
+    font-size: 24px;
+    margin: 0;
+    font-weight: 200;
+}
+
+.contact-container {
+    display: flex;
+    align-items: center;
+}
+
+.move-left {
+    margin-right: 40px;
+}
+
+.contact-link {
+    margin: 0 0 0 10px;
+    font-size: 15px;
+    padding-right: 10px;
+}
+
+
