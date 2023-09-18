@@ -1,7 +1,9 @@
+
+
 function App() {
- return(
-  <h1>FACILAFATURA COMEÇA AGORA</h1>
- )
+  return (
+    <h1>FACILITAFATURA AGORA VAI!</h1>
+  );
 }
 
-export default App
+export default App;
