@@ -1,0 +1,47 @@
+.clientes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  
+  .clientes-table th,
+  .clientes-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .clientes-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .clientes-table tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .atualizar-button,
+  .deletar-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 5px;
+  }
+  
+  .atualizar-button:hover,
+  .deletar-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .deletar-button {
+    background-color: #dc3545;
+  }
+  
+  .deletar-button:hover {
+    background-color: #c82333;
+  }
+  
