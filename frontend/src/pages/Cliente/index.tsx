@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
+import axios from 'axios';
+import { BASE_URL } from '../../utils/requests';
 
 function Cliente() {
   
@@ -8,6 +10,11 @@ function Cliente() {
     { id: 2, name: 'Maria', total: 732.45 },
     // Outros clientes aqui...
   ]);
+
+  axios.get(`${BASE_URL}/clientes?page=0&size=5&sort=name,asc`)
+            .then(response => {
+                console.log(response.data);
+            });
 
   const handleAtualizarCliente = () => {
     // Lógica para atualizar o cliente pelo ID
@@ -36,14 +43,24 @@ function Cliente() {
   };
 
   return (
-    <div>
-      <h1>Clientes das faturas</h1>
-      <table className="clientes-table">
+    <>
+    <h1 >Página de Clientes</h1>
+    <div className="d-flex justify-content-center align-items-center mb-2">
+      <form action="">
+        <div className="input-group">
+            <input type="text" name="search" className="form-control" placeholder="Pesquisar pelo Nome" />
+            <button className="btn btn-primary mx-2" type="submit">CADASTRAR</button>
+        </div>
+      </form>
+    </div>
+    <div className='table-responsive'>
+      <table className='table rounded text-white table-striped table-hover table-sm'>
         <thead>
           <tr>
             <th>ID</th>
             <th>Nome</th>
             <th>Total</th>
+            <th>Adicionar Valor</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -53,6 +70,14 @@ function Cliente() {
               <td>{cliente.id}</td>
               <td>{cliente.name}</td>
               <td>{cliente.total}</td>
+              <td>
+              <button
+                  onClick={() => handleAtualizarCliente()}
+                  className="adicionar-valor"
+                >
+                  Inserir
+                </button>
+              </td>
               <td>
                 <button
                   onClick={() => handleAtualizarCliente()}
@@ -72,6 +97,7 @@ function Cliente() {
         </tbody>
       </table>
     </div>
+    </>
   );
 }
 
