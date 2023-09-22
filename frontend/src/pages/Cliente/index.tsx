@@ -5,6 +5,7 @@ import { BASE_URL } from '../../utils/requests';
 import { ClientePage } from '../../types/cliente';
 import Pagination from '../../components/Pagination';
 import { ReactComponent as SearchIcon } from '../../assets/img/search.svg';
+import { Link } from 'react-router-dom';
 
 function Cliente() {
   const [pageNumber, setPageNumber] = useState(0);
@@ -76,9 +77,9 @@ function Cliente() {
           </div>
         </form>
         <div className="ml-2" style={{ marginLeft: '16px' }}>
-          <button className="btn btn-primary" type="button">
-            CADASTRAR
-          </button>
+          <Link to="/clientes/cadastrar" className="btn btn-primary">
+              CADASTRAR
+          </Link>
         </div>
 
       </div>
