@@ -1,3 +1,4 @@
+
 .clientes-table {
     width: 100%;
     border-collapse: collapse;
@@ -44,5 +45,7 @@
   .deletar-button:hover {
     background-color: #c82333;
   }
+
+  
   
  

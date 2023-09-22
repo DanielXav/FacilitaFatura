@@ -4,6 +4,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../utils/requests';
 import { ClientePage } from '../../types/cliente';
 import Pagination from '../../components/Pagination';
+import { ReactComponent as SearchIcon } from '../../assets/img/search.svg';
 
 function Cliente() {
   const [pageNumber, setPageNumber] = useState(0);
@@ -67,12 +68,19 @@ function Cliente() {
               name="search"
               className="form-control"
               placeholder="Pesquisar pelo Nome"
+              style={{ background: 'white' }}
             />
-            <button className="btn btn-primary mx-2" type="submit">
-              CADASTRAR
+            <button className="btn btn-light" type="button" style={{ background: 'white' }}>
+              <i className="fas fa-search"></i> {<SearchIcon />}
             </button>
           </div>
         </form>
+        <div className="ml-2" style={{ marginLeft: '16px' }}>
+          <button className="btn btn-primary" type="button">
+            CADASTRAR
+          </button>
+        </div>
+
       </div>
       <div className="table-responsive">
         <table className="table rounded text-white table-striped table-hover table-sm">
