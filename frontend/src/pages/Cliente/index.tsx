@@ -51,6 +51,11 @@ function Cliente() {
       });
   };
 
+  const handlePageChange = (newPageNumber: number) => {
+    setPageNumber(newPageNumber);
+  };
+
+
   return (
     <>
       <h1>Página de Clientes</h1>
@@ -103,7 +108,7 @@ function Cliente() {
           </tbody>
         </table>
       </div>
-      <Pagination/>
+      <Pagination page={page} onPageChange={handlePageChange} />
     </>
   );
 }
