@@ -6,6 +6,7 @@ import { ClientePage } from '../../types/cliente';
 import Pagination from '../../components/Pagination';
 import { ReactComponent as SearchIcon } from '../../assets/img/search.svg';
 import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
 
 function Cliente() {
   const [pageNumber, setPageNumber] = useState(0);
@@ -20,6 +21,9 @@ function Cliente() {
     numberOfElements: 0,
     empty: true,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedClienteId, setSelectedClienteId] = useState<number | null>(null);
+  const [addedValue, setAddedValue] = useState<number | null>(null);
 
   useEffect(() => {
     axios
@@ -57,6 +61,44 @@ function Cliente() {
     setPageNumber(newPageNumber);
   };
 
+  const handleOpenModal = (clienteId: number) => {
+    setSelectedClienteId(clienteId);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedClienteId(null);
+  };
+
+  const handleAddValue = (value: number) => {
+    if (selectedClienteId !== null) {
+      axios.post(
+        `${BASE_URL}/clientes/${selectedClienteId}/adicionar-valor`, 
+        value, 
+        { headers: { 'Content-Type': 'application/json' } } 
+      )
+      .then((response) => {
+        
+      })
+      .catch((error) => {
+        console.error('Erro ao adicionar valor:', error);
+      });
+      handleCloseModal();
+    }
+};
+
+
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAddedValue(Number(e.target.value));
+  };
+
+  const handleAddValueSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (addedValue !== null) {
+      handleAddValue(addedValue);
+    }
+  };
 
   return (
     <>
@@ -78,10 +120,9 @@ function Cliente() {
         </form>
         <div className="ml-2" style={{ marginLeft: '16px' }}>
           <Link to="/clientes/cadastrar" className="btn btn-primary">
-              CADASTRAR
+            CADASTRAR
           </Link>
         </div>
-
       </div>
       <div className="table-responsive">
         <table className="table rounded text-white table-striped table-hover table-sm">
@@ -101,7 +142,9 @@ function Cliente() {
                 <td>{cliente.name}</td>
                 <td> R$ {cliente.total}</td>
                 <td>
-                  <button className="adicionar-valor">Inserir</button>
+                  <button className="adicionar-valor" onClick={() => handleOpenModal(cliente.id)}>
+                    Inserir
+                  </button>
                 </td>
                 <td>
                   <button className="atualizar-button">Atualizar</button>
@@ -117,6 +160,23 @@ function Cliente() {
           </tbody>
         </table>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseModal}
+        contentLabel="Adicionar Valor"
+      >
+        <h2>Adicionar Valor</h2>
+        <form onSubmit={handleAddValueSubmit}>
+          <input
+            type="number"
+            name="valueInput"
+            placeholder="Insira o valor"
+            onChange={handleValueChange}
+          />
+          <button type="submit">Adicionar</button>
+        </form>
+        <button onClick={handleCloseModal}>Fechar</button>
+      </Modal>
       <Pagination page={page} onPageChange={handlePageChange} />
     </>
   );

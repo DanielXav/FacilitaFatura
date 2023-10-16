@@ -1,5 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../../utils/requests';
+import axios from 'axios';
 
 function FormCliente() {
     const [valor, setValor] = useState<string>('');
@@ -7,16 +9,38 @@ function FormCliente() {
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inputValue: string = e.target.value;
 
-        // Remova todos os pontos do valor e mantenha apenas os dígitos
         const numericValue = inputValue.replace(/\./g, '');
 
-        // Use uma expressão regular para adicionar o ponto decimal após os dois últimos dígitos
         const formattedValue = numericValue.replace(
             /^(\d*)(\d{2})$/,
             '$1.$2'
         );
 
         setValor(formattedValue);
+    };
+
+    const handleSubmit = async () => {
+        try {
+
+            const nomeInput = document.getElementById('nome') as HTMLInputElement;
+
+            if (nomeInput) {
+
+                const data = {
+                    name: nomeInput.value,
+                    total: parseFloat(valor.replace(',', '.'))
+                };
+
+            await axios.post(`${BASE_URL}/clientes`, data);
+
+            window.location.href = '/clientes';
+            }
+            else {
+                console.error('Elemento não encontrado.');
+            }
+        } catch (error) {
+            console.error('Erro ao realizar o POST:', error);
+        }
     };
 
     return (
@@ -47,7 +71,9 @@ function FormCliente() {
                                 />
                             </div>
                             <div className="text-center">
-                                <button type="button" className="btn btn-primary mx-2">
+                                <button type="button"
+                                    className="btn btn-primary mx-2"
+                                    onClick={handleSubmit}>
                                     Salvar
                                 </button>
                                 <Link to="/clientes" className="btn btn-danger">
